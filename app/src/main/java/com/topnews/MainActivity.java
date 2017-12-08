@@ -1,5 +1,6 @@
 package com.topnews;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.topnews.activity.ChannelActivity;
 import com.topnews.adapter.NewsFragmentPagerAdapter;
 import com.topnews.bean.NewsClassify;
 import com.topnews.custom.CustomTabView;
@@ -164,7 +166,8 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
+                Intent intent = new Intent(MainActivity.this, ChannelActivity.class);
+                startActivity(intent);
             }
         });
         top_head.setOnClickListener(new OnClickListener() {

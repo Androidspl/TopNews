@@ -27,6 +27,8 @@
         </activity>
         <activity android:name="com.topnews.SettingsActivity" >
         </activity>
+        <activity android:name="com.topnews.activity.ChannelActivity" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

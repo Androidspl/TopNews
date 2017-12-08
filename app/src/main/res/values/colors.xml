@@ -698,6 +698,9 @@
     <color name="ss_top_progressbar_start">#10ffffff</color>
     <color name="ss_top_progressbar_end">#ffffffff</color>
 
-
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColor">#808080</color>
 
 </resources>
