@@ -1,1 +1,1 @@
-include ':app', ':jeremyfeinstein', ':library_slidingmenu', ':jeremyfeinstein'
+include ':app', ':jeremyfeinstein'

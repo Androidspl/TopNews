@@ -63,9 +63,9 @@ public class Constants {
 //				String url1 = "http://infopic.gtimg.com/qq_news/digi/pics/102/102066/102066094_400_640.jpg";
 //				String url2 = "http://infopic.gtimg.com/qq_news/digi/pics/102/102066/102066096_400_640.jpg";
 //				String url3 = "http://infopic.gtimg.com/qq_news/digi/pics/102/102066/102066099_400_640.jpg";
-				String url1 = "https://s3m.mediav.com/galileo/91ee6fcb636466da093b53dab74df091.jpg";
-				String url2 = "https://s3m.mediav.com/galileo/91ee6fcb636466da093b53dab74df091.jpg";
-				String url3 = "https://s3m.mediav.com/galileo/91ee6fcb636466da093b53dab74df091.jpg";
+				String url1 = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1577735516,2735029391&fm=27&gp=0.jpg";
+				String url2 = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1689474615,1892448225&fm=27&gp=0.jpg";
+				String url3 = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3118373368,72267147&fm=27&gp=0.jpg";
 				news.setPicOne(url1);
 				news.setPicTwo(url2);
 				news.setPicThr(url3);
@@ -74,7 +74,8 @@ public class Constants {
 				url_list.add(url3);
 			}else{
 				news.setTitle("AA用车:智能短租租车平台");
-				String url = "http://r3.sinaimg.cn/2/2014/0417/a7/6/92478595/580x1000x75x0.jpg";
+//				String url = "http://r3.sinaimg.cn/2/2014/0417/a7/6/92478595/580x1000x75x0.jpg";
+				String url = "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3611920610,3263649367&fm=27&gp=0.jpg";
 				news.setPicOne(url);
 				url_list.add(url);
 			}
@@ -89,7 +90,8 @@ public class Constants {
 				news.setLocal("推广");
 				news.setIsLarge(true);
 //				String url = "http://imgt2.bdstatic.com/it/u=3269155243,2604389213&fm=21&gp=0.jpg";
-				String url = "https://s3m.mediav.com/galileo/91ee6fcb636466da093b53dab74df091.jpg";
+//				String url = "https://s3m.mediav.com/galileo/91ee6fcb636466da093b53dab74df091.jpg";
+				String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512712886368&di=4d4aa32eb4cce61185bc07cedef9b766&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fblog%2F201406%2F07%2F20140607180614_idtaF.jpeg";
 				news.setPicOne(url);
 				url_list.clear();
 				url_list.add(url);
