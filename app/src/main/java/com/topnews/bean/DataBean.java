@@ -15,8 +15,42 @@ public class DataBean {
         this.url = url;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
+
+
     @Override
     public String toString() {
-        return name;
+        return "DataBean{" +
+                "name='" + name + '\'' +
+                ", page=" + page +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

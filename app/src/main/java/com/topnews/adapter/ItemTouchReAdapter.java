@@ -16,6 +16,7 @@ import com.topnews.callbacks.TouchInterface;
 import java.util.Collections;
 import java.util.List;
 
+import static android.R.id.list;
 import static com.topnews.utils.Utils.leftStepList;
 import static com.topnews.utils.Utils.rightStepList;
 
@@ -23,7 +24,7 @@ import static com.topnews.utils.Utils.rightStepList;
  * Created by pengleiShen on 2017/12/8.
  */
 
-public class ItemTouchAdapter extends RecyclerView.Adapter<MyViewHolder> implements TouchInterface {
+public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> implements TouchInterface {
 
     private Context context;
     //是否显示delete
@@ -38,21 +39,23 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<MyViewHolder> impleme
     }
 
     private List<DataBean> list;
+    private List<DataBean> channleList;
 
-    public ItemTouchAdapter(Context context, List<DataBean> list) {
+    public ItemTouchReAdapter(Context context, List<DataBean> channleList, List<DataBean> recommendList) {
         this.context = context;
-        this.list = list;
+        this.list = recommendList;
+        this.channleList = channleList;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder viewHolder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false));
+    public MyReViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        MyReViewHolder viewHolder = new MyReViewHolder(LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false));
         return viewHolder;
     }
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyReViewHolder holder, final int position) {
 
         holder.tv_des.setText(list.get(position).name);
         holder.tv_des.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +105,12 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<MyViewHolder> impleme
     }
 }
 
-class MyViewHolder extends RecyclerView.ViewHolder {
+class MyReViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView iv_icon;
     public TextView tv_des;
 
-    public MyViewHolder(View itemView) {
+    public MyReViewHolder(View itemView) {
         super(itemView);
         iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
         tv_des = (TextView) itemView.findViewById(R.id.tv_des);
