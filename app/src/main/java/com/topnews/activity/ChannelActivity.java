@@ -11,6 +11,7 @@ import com.topnews.R;
 import com.topnews.adapter.ItemTouchChAdapter;
 import com.topnews.adapter.ItemTouchReAdapter;
 import com.topnews.bean.DataBean;
+import com.topnews.callbacks.NotifyInterface;
 import com.topnews.custom.CustomItemTouchCallBack;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class ChannelActivity extends FragmentActivity {
     public List<DataBean> channleList = new ArrayList<>();
     public List<DataBean> recommendList = new ArrayList<>();
     private RecyclerView rl_recommend;
+    private ItemTouchChAdapter adapter_channel;
+    private ItemTouchReAdapter adapter_recommend;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,15 +46,19 @@ public class ChannelActivity extends FragmentActivity {
         //我的频道
         rv = (RecyclerView) findViewById(R.id.rl_view);
         rv.setLayoutManager(new GridLayoutManager(this, 4));
-        ItemTouchChAdapter adapter = new ItemTouchChAdapter(this, channleList, recommendList);
-        rv.setAdapter(adapter);
+        adapter_channel = new ItemTouchChAdapter(this, channleList, recommendList);
+        rv.setAdapter(adapter_channel);
         //频道推荐
         rl_recommend = (RecyclerView) findViewById(R.id.rl_recommend);
         rl_recommend.setLayoutManager(new GridLayoutManager(this, 4));
-        ItemTouchReAdapter adapter_recommend = new ItemTouchReAdapter(this, channleList, recommendList);
+        adapter_recommend = new ItemTouchReAdapter(this, channleList, recommendList);
         rl_recommend.setAdapter(adapter_recommend);
+
+        adapter_channel.setNotifyInterface(adapter_recommend);
+        adapter_recommend.setNotifyInterface(adapter_channel);
+
         //关联ItemTouchHelper
-        ItemTouchHelper touchHelper = new ItemTouchHelper(new CustomItemTouchCallBack(adapter));
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new CustomItemTouchCallBack(adapter_channel));
         touchHelper.attachToRecyclerView(rv);
 //        ItemTouchHelper touchHelper_recommend = new ItemTouchHelper(new CustomItemTouchCallBack(adapter));
 //        touchHelper_recommend.attachToRecyclerView(rv);

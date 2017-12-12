@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.topnews.R;
 import com.topnews.bean.DataBean;
+import com.topnews.callbacks.NotifyInterface;
 import com.topnews.callbacks.TouchInterface;
 
 import java.util.Collections;
@@ -24,26 +25,27 @@ import static com.topnews.utils.Utils.rightStepList;
  * Created by pengleiShen on 2017/12/8.
  */
 
-public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> implements TouchInterface {
+public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> implements TouchInterface, NotifyInterface {
 
+    private NotifyInterface notifyInterface;
     private Context context;
     //是否显示delete
     public boolean isShow;
 
     public List<DataBean> getList() {
-        return list;
+        return recommendList;
     }
 
     public void setList(List<DataBean> list) {
-        this.list = list;
+        this.recommendList = list;
     }
 
-    private List<DataBean> list;
+    private List<DataBean> recommendList;
     private List<DataBean> channleList;
 
     public ItemTouchReAdapter(Context context, List<DataBean> channleList, List<DataBean> recommendList) {
         this.context = context;
-        this.list = recommendList;
+        this.recommendList = recommendList;
         this.channleList = channleList;
     }
 
@@ -57,11 +59,13 @@ public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> imp
     @Override
     public void onBindViewHolder(MyReViewHolder holder, final int position) {
 
-        holder.tv_des.setText(list.get(position).name);
+        holder.tv_des.setText(recommendList.get(position).name);
         holder.tv_des.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBean bean = list.remove(position);
+                DataBean bean = recommendList.remove(position);
+                channleList.add(bean);
+                notifyInterface.notifyView();
                 notifyDataSetChanged();
                 Toast.makeText(context,"删除了"+bean.name+"频道",Toast.LENGTH_SHORT).show();
             }
@@ -85,11 +89,11 @@ public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> imp
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return recommendList.size();
     }
 
     @Override
-    public void onMove(int currentPosition, int targetPosition) {
+    public void onMove(int currentPosition, int targetPosition, List<DataBean> list) {
 
         Collections.swap(list, currentPosition, targetPosition);
         if (targetPosition < currentPosition) {
@@ -102,6 +106,29 @@ public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> imp
             leftStepList(0, subList);
         }
         notifyItemMoved(currentPosition, targetPosition);
+    }
+
+    @Override
+    public List<DataBean> getDataBeanList() {
+        return recommendList;
+    }
+
+    @Override
+    public void notifyView() {
+        onMove(recommendList.size() - 1, 0, recommendList);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @Description:刷新界面
+     *
+     * @param
+     *
+     * @return
+     *
+     */
+    public void setNotifyInterface(NotifyInterface notifyInterface){
+        this.notifyInterface = notifyInterface;
     }
 }
 

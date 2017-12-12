@@ -3,7 +3,12 @@ package com.topnews.custom;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import com.topnews.bean.DataBean;
 import com.topnews.callbacks.TouchInterface;
+
+import java.util.List;
+
+import static android.R.id.list;
 
 /**
  * Created by pengleiShen on 2017/12/8.
@@ -12,10 +17,12 @@ import com.topnews.callbacks.TouchInterface;
 
 public class CustomItemTouchCallBack extends ItemTouchHelper.Callback {
 
+    private final List<DataBean> dataList;
     private TouchInterface touchInterface;
 
     public CustomItemTouchCallBack(TouchInterface touchInterface) {
         this.touchInterface = touchInterface;
+        this.dataList = touchInterface.getDataBeanList();
     }
 
     @Override
@@ -33,7 +40,7 @@ public class CustomItemTouchCallBack extends ItemTouchHelper.Callback {
         int position_target = target.getLayoutPosition();
         int position = viewHolder.getLayoutPosition();
         //滑动事件回调到了Adapter，用来处理数据
-        touchInterface.onMove(position, position_target);
+        touchInterface.onMove(position, position_target, dataList);
         return true;
     }
 

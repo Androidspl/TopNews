@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.topnews.R;
 import com.topnews.bean.DataBean;
+import com.topnews.callbacks.NotifyInterface;
 import com.topnews.callbacks.TouchInterface;
 
 import java.util.Collections;
@@ -27,28 +28,30 @@ import static com.topnews.utils.Utils.rightStepList;
  * Created by pengleiShen on 2017/12/8.
  */
 
-public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> implements TouchInterface {
+public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> implements TouchInterface, NotifyInterface {
 
     private Context context;
     //是否显示delete
     public boolean isShow;
+    private List<DataBean> channelList;
+    private List<DataBean> recommendList;
+    private NotifyInterface notifyInterface;
 
     public List<DataBean> getList() {
-        return list;
+        return channelList;
     }
 
     public void setList(List<DataBean> list) {
-        this.list = list;
+        this.channelList = list;
     }
-
-    private List<DataBean> list;
-    private List<DataBean> recommendList;
 
     public ItemTouchChAdapter(Context context, List<DataBean> channleList, List<DataBean> recommendList) {
         this.context = context;
-        this.list = channleList;
+        this.channelList = channleList;
         this.recommendList = recommendList;
     }
+
+
 
     @Override
     public MyChViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,32 +63,19 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
     @Override
     public void onBindViewHolder(MyChViewHolder holder, final int position) {
 
-        holder.tv_des.setText(list.get(position).name);
+        holder.tv_des.setText(channelList.get(position).name);
         holder.tv_des.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DataBean bean = list.get(position);
-                DataBean bean = list.remove(position);
-                // 取出推荐列表添加频道前0位置的数据
-//                DataBean bean_current_zero = recommendList.get(0);
-                // 把取出的数据放到
-//                DataBean bean_1 = new DataBean("段子", 0, "url");
-                Log.e("Size:",recommendList.size() + "");
+                DataBean bean = channelList.remove(position);
                 recommendList.add(bean);
-                Log.e("Size-add:",recommendList.size() + "");
-//                reverseList(recommendList.size(),0,recommendList);
-//                Collections.swap(recommendList, recommendList.size() , 0);
-//                Collections.swap(recommendList, 2 , 1);
-//                List<DataBean> subList = recommendList.subList(recommendList.size(), 0);
-//                List<DataBean> subList = recommendList.subList(2, 1);
-                //向左移一位
-//                leftStepList(0, subList);
-
+                notifyInterface.notifyView();
                 notifyDataSetChanged();
                 Toast.makeText(context,"删除了"+bean.name+"频道",Toast.LENGTH_SHORT).show();
-                for (int i=0; i<list.size(); i++){
+                for (int i=0; i<channelList.size(); i++){
 //                    System.out.println("第" + i + "个：" + list.get(i).toString());
                 }
+
             }
         });
 
@@ -108,11 +98,11 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
     @Override
     public int getItemCount() {
 
-        return list.size();
+        return channelList.size();
     }
 
     @Override
-    public void onMove(int currentPosition, int targetPosition) {
+    public void onMove(int currentPosition, int targetPosition, List<DataBean> list) {
 
         Collections.swap(list, currentPosition, targetPosition);
 //        Log.e("currentPosition:",currentPosition+"");
@@ -131,9 +121,32 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
         notifyItemMoved(currentPosition, targetPosition);
         for (int i=0; i<list.size(); i++){
 //            System.out.println("第" + i + "个：" + list.get(i).toString());
-//            System.out.println("第" + i + "个：" + list.get(i));
+            System.out.println("第" + i + "个：" + list.get(i));
         }
     }
+
+    @Override
+    public List<DataBean> getDataBeanList() {
+        return channelList;
+    }
+
+    @Override
+    public void notifyView() {
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @Description:刷新界面
+     *
+     * @param
+     *
+     * @return
+     *
+     */
+    public void setNotifyInterface(NotifyInterface notifyInterface){
+        this.notifyInterface = notifyInterface;
+    }
+
 }
 
 class MyChViewHolder extends RecyclerView.ViewHolder {
