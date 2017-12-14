@@ -34,6 +34,7 @@ import com.topnews.bean.NewsClassify;
 import com.topnews.broadcast.ChannelBroadcastReciever;
 import com.topnews.custom.CustomItemTouchCallBack;
 import com.topnews.custom.CustomTabView;
+import com.topnews.fragment.HotTopicFragment;
 import com.topnews.fragment.NewsFragment;
 import com.topnews.tool.BaseTools;
 import com.topnews.tool.Constants;
@@ -106,7 +107,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
         initTabView();
         initSlidingMenu();
         //初始化广播
-        initBroadCast();
+//        initBroadCast();
         //初始化popwindow
         initPopWindow();
     }
@@ -204,6 +205,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             @Override
             public void onDismiss() {
                 reTabColumn();
+                initFragment();
             }
         });
         //我的频道
@@ -233,7 +235,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
         DataBean bean3 = new DataBean("热点", 2, "url");
         DataBean bean4 = new DataBean("体育", 3, "url");
         DataBean bean5 = new DataBean("影视", 4, "url");
-        DataBean bean6 = new DataBean("推荐", 5, "url");
+        DataBean bean6 = new DataBean("娱乐", 5, "url");
         DataBean bean7 = new DataBean("新闻", 6, "url");
         DataBean bean8 = new DataBean("音乐", 7, "url");
         DataBean bean9 = new DataBean("电影", 8, "url");
@@ -268,6 +270,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
         recommendList.add(bean_8);
         recommendList.add(bean_9);
 
+        setChangelView();
     }
 
     /** 初始化layout控件*/
@@ -324,15 +327,14 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
                 }
             }
         });
-//        setChangelView();
     }
     /**
      *  当栏目项发生变化时候调用
      * */
     private void setChangelView() {
 //        initColumnData();
-//        initTabColumn();
-//        initFragment();
+        initTabColumn();
+        initFragment();
     }
     /** 获取Column栏目 数据*/
     private void initColumnData() {
@@ -344,7 +346,8 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
      * */
     private void initTabColumn() {
         mRadioGroup_content.removeAllViews();
-        int count =  newsClassify.size();
+//        int count =  newsClassify.size();
+        int count =  channleList.size();
         mColumnHorizontalScrollView.setParam(this, mScreenWidth, mRadioGroup_content, shade_left, shade_right, ll_more_columns, rl_column);
         for(int i = 0; i< count; i++){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth , LayoutParams.WRAP_CONTENT);
@@ -358,7 +361,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             columnTextView.setGravity(Gravity.CENTER);
             columnTextView.setPadding(5, 5, 5, 5);
             columnTextView.setId(i);
-            columnTextView.setText(newsClassify.get(i).getTitle());
+            columnTextView.setText(channleList.get(i).getName());
             columnTextView.setTextColor(getResources().getColorStateList(R.color.top_category_scroll_text_color_day));
             if(columnSelectIndex == i){
                 columnTextView.setSelected(true);
@@ -376,7 +379,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
                             mViewPager.setCurrentItem(i);
                         }
                     }
-                    Toast.makeText(getApplicationContext(), newsClassify.get(v.getId()).getTitle(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), newsClassify.get(v.getId()).getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
             mRadioGroup_content.addView(columnTextView, i ,params);
@@ -413,12 +416,16 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
      *  初始化Fragment
      * */
     private void initFragment() {
-        int count =  newsClassify.size();
+        fragments.clear();
+//        int count =  newsClassify.size();
+        int count =  channleList.size();
         for(int i = 0; i< count;i++){
             Bundle data = new Bundle();
-            data.putString("text", newsClassify.get(i).getTitle());
-            NewsFragment newfragment = new NewsFragment();
-            newfragment.setArguments(data);
+            data.putString("text", channleList.get(i).getName());
+            HotTopicFragment newfragment = new HotTopicFragment();
+            newfragment.setHotText(channleList.get(i).getName());
+//            NewsFragment newfragment = new NewsFragment();
+//            newfragment.setArguments(data);
             fragments.add(newfragment);
         }
         NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
@@ -506,31 +513,6 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
 
     }
 
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        mTabsText = channelBroadcastReciever.mTabsText;
-////        reTabColumn();
-//    }
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mTabsText = channelBroadcastReciever.mTabsText;
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        reTabColumn();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        mTabsText = channelBroadcastReciever.mTabsText;
-//    }
-
     /**
      * @Description:更新tabcolumn
      *
@@ -573,7 +555,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
                             mViewPager.setCurrentItem(i);
                         }
                     }
-                    Toast.makeText(getApplicationContext(), newsClassify.get(v.getId()).getTitle(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), newsClassify.get(v.getId()).getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
             mRadioGroup_content.addView(columnTextView, i ,params);

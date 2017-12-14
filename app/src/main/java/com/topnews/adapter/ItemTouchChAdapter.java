@@ -78,7 +78,6 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
                     notifyInterface.notifyView();
                     notifyDataSetChanged();
                     Toast.makeText(context,"删除了"+bean.getName()+"频道",Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -123,10 +122,6 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
             leftStepList(0, subList);
         }
         notifyItemMoved(currentPosition, targetPosition);
-        for (int i=0; i<list.size(); i++){
-//            System.out.println("第" + i + "个：" + list.get(i).toString());
-            System.out.println("第" + i + "个：" + list.get(i));
-        }
     }
 
     @Override
