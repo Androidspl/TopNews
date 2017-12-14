@@ -3,6 +3,8 @@ package com.topnews.tool;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.topnews.activity.ChannelActivity;
+import com.topnews.bean.DataBean;
 import com.topnews.bean.NewsClassify;
 import com.topnews.bean.NewsEntity;
 
@@ -17,30 +19,46 @@ public class Constants {
 		classify.setId(1);
 		classify.setTitle("热点");
 		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(2);
-		classify.setTitle("数码");
-		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(3);
-		classify.setTitle("杭州");
-		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(4);
-		classify.setTitle("社会");
-		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(5);
-		classify.setTitle("娱乐");
-		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(6);
-		classify.setTitle("科技");
-		newsClassify.add(classify);
-		classify = new NewsClassify();
-		classify.setId(7);
-		classify.setTitle("汽车");
-		newsClassify.add(classify);
+
+//		ChannelActivity channelActivity = new ChannelActivity();
+//		List<DataBean> channleList = channelActivity.channleList;
+//		for (int i=0; i<channleList.size(); i++) {
+//			NewsClassify classify_ = new NewsClassify();
+//			classify.setTitle(channleList.get(i).getName());
+//			newsClassify.add(classify_);
+//		}
+
+//		classify.setId(0);
+//		classify.setTitle("推荐");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(1);
+//		classify.setTitle("热点");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(2);
+//		classify.setTitle("数码");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(3);
+//		classify.setTitle("杭州");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(4);
+//		classify.setTitle("社会");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(5);
+//		classify.setTitle("娱乐");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(6);
+//		classify.setTitle("科技");
+//		newsClassify.add(classify);
+//		classify = new NewsClassify();
+//		classify.setId(7);
+//		classify.setTitle("汽车");
+//		newsClassify.add(classify);
 		return newsClassify;
 	}
 

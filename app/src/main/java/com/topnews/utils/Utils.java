@@ -1,9 +1,12 @@
 package com.topnews.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 
@@ -109,6 +112,24 @@ public class Utils {
         reverseList(size-step,size,list);
         reverseList(0,size-step-1,list);
         reverseList(0,size,list);
+    }
+
+    /**
+     * @Description:
+     *
+     * @param
+     *
+     * @return
+     *
+     */
+    // 构建一个隐式意图，然后发送广播。
+    public static void sendBroadCast (Context context, Serializable serializable){
+        Intent intent = new Intent("com.topnews.adapter.channel");
+        Bundle bundle = new Bundle();
+//        bundle.putSerializable("channel", (Serializable) channelList);
+        bundle.putSerializable("channel", serializable);
+        intent.putExtras(bundle);
+        context.sendBroadcast(intent);
     }
 
 }

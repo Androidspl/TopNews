@@ -59,7 +59,7 @@ public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> imp
     @Override
     public void onBindViewHolder(MyReViewHolder holder, final int position) {
 
-        holder.tv_des.setText(recommendList.get(position).name);
+        holder.tv_des.setText(recommendList.get(position).getName());
         holder.tv_des.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class ItemTouchReAdapter extends RecyclerView.Adapter<MyReViewHolder> imp
                 channleList.add(bean);
                 notifyInterface.notifyView();
                 notifyDataSetChanged();
-                Toast.makeText(context,"删除了"+bean.name+"频道",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"删除了"+bean.getName()+"频道",Toast.LENGTH_SHORT).show();
             }
         });
 

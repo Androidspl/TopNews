@@ -1,13 +1,18 @@
 package com.topnews.bean;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by zhoukai on 2017/7/3.
  */
 
-public class DataBean {
-    public String name;
-    int page;
-    String url;
+public class DataBean implements Serializable{
+
+    private List<DataBean> tab;
+    private String name;
+    private int page;
+    private String url;
 
     public DataBean(String name, int page, String url) {
         this.name = name;
@@ -53,4 +58,5 @@ public class DataBean {
                 ", url='" + url + '\'' +
                 '}';
     }
+
 }

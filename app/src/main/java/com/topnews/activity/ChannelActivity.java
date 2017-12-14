@@ -6,14 +6,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.KeyEvent;
 
 import com.topnews.R;
 import com.topnews.adapter.ItemTouchChAdapter;
 import com.topnews.adapter.ItemTouchReAdapter;
 import com.topnews.bean.DataBean;
-import com.topnews.callbacks.NotifyInterface;
+import com.topnews.bean.TabBean;
 import com.topnews.custom.CustomItemTouchCallBack;
+import com.topnews.utils.Utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +70,13 @@ public class ChannelActivity extends FragmentActivity {
 
     private void initData() {
 
-        DataBean bean1 = new DataBean("体育", 0, "url");
-        DataBean bean2 = new DataBean("新闻", 1, "url");
-        DataBean bean3 = new DataBean("影视", 2, "url");
-        DataBean bean4 = new DataBean("电视剧", 3, "url");
-        DataBean bean5 = new DataBean("热点", 4, "url");
+        DataBean bean1 = new DataBean("推荐", 0, "url");
+        DataBean bean2 = new DataBean("关注", 1, "url");
+        DataBean bean3 = new DataBean("热点", 2, "url");
+        DataBean bean4 = new DataBean("体育", 3, "url");
+        DataBean bean5 = new DataBean("影视", 4, "url");
         DataBean bean6 = new DataBean("推荐", 5, "url");
-        DataBean bean7 = new DataBean("屌丝男士", 6, "url");
+        DataBean bean7 = new DataBean("新闻", 6, "url");
         DataBean bean8 = new DataBean("音乐", 7, "url");
         DataBean bean9 = new DataBean("电影", 8, "url");
 
@@ -127,5 +130,15 @@ public class ChannelActivity extends FragmentActivity {
         recommendList.add(bean_8);
         recommendList.add(bean_9);
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Utils.sendBroadCast(getApplicationContext(), (Serializable) channleList);
+            finish();
+        }
+        return true;
     }
 }

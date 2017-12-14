@@ -1,6 +1,9 @@
 package com.topnews.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,8 @@ import com.topnews.bean.DataBean;
 import com.topnews.callbacks.NotifyInterface;
 import com.topnews.callbacks.TouchInterface;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,19 +68,18 @@ public class ItemTouchChAdapter extends RecyclerView.Adapter<MyChViewHolder> imp
     @Override
     public void onBindViewHolder(MyChViewHolder holder, final int position) {
 
-        holder.tv_des.setText(channelList.get(position).name);
+        holder.tv_des.setText(channelList.get(position).getName());
         holder.tv_des.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBean bean = channelList.remove(position);
-                recommendList.add(bean);
-                notifyInterface.notifyView();
-                notifyDataSetChanged();
-                Toast.makeText(context,"删除了"+bean.name+"频道",Toast.LENGTH_SHORT).show();
-                for (int i=0; i<channelList.size(); i++){
-//                    System.out.println("第" + i + "个：" + list.get(i).toString());
-                }
+                if (position > 2){
+                    DataBean bean = channelList.remove(position);
+                    recommendList.add(bean);
+                    notifyInterface.notifyView();
+                    notifyDataSetChanged();
+                    Toast.makeText(context,"删除了"+bean.getName()+"频道",Toast.LENGTH_SHORT).show();
 
+                }
             }
         });
 
@@ -159,4 +163,5 @@ class MyChViewHolder extends RecyclerView.ViewHolder {
         iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
         tv_des = (TextView) itemView.findViewById(R.id.tv_des);
     }
+
 }
