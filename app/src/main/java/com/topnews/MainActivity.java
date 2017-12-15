@@ -34,8 +34,12 @@ import com.topnews.bean.NewsClassify;
 import com.topnews.broadcast.ChannelBroadcastReciever;
 import com.topnews.custom.CustomItemTouchCallBack;
 import com.topnews.custom.CustomTabView;
+import com.topnews.fragment.FilmFragment;
+import com.topnews.fragment.FollowFragment;
 import com.topnews.fragment.HotTopicFragment;
 import com.topnews.fragment.NewsFragment;
+import com.topnews.fragment.RecommendFragment;
+import com.topnews.fragment.SportFragment;
 import com.topnews.tool.BaseTools;
 import com.topnews.tool.Constants;
 import com.topnews.utils.Utils;
@@ -95,6 +99,17 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
     public List<DataBean> recommendList = new ArrayList<>();
     private RecyclerView rl_recommend;
     private ItemTouchReAdapter adapter_recommend;
+    private NewsFragmentPagerAdapter mAdapetr;
+    // 创建推荐的Fragment
+    private RecommendFragment reFragment;
+    // 创建关注的Fragment
+    private FollowFragment foFragment;
+    // 创建热点的Fragment
+    private HotTopicFragment hotFragment;
+    // 创建体育的Fragment
+    private SportFragment spFragment;
+    // 创建影视的Fragment
+    private FilmFragment flFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,7 +220,20 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             @Override
             public void onDismiss() {
                 reTabColumn();
-                initFragment();
+                reFragment();
+
+//                initFragment();
+//                for (int i=0; i<channleList.size(); i++) {
+//                    String tab_name = channleList.get(i).getName();
+//                    switch (tab_name) {
+//                        case "推荐":
+//                            if (reFragment != null) {
+//
+//                            }
+//                            break;
+//
+//                    }
+//                }
             }
         });
         //我的频道
@@ -228,6 +256,8 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
 
     }
 
+
+
     private void initPopData() {
 
         DataBean bean1 = new DataBean("推荐", 0, "url");
@@ -235,20 +265,20 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
         DataBean bean3 = new DataBean("热点", 2, "url");
         DataBean bean4 = new DataBean("体育", 3, "url");
         DataBean bean5 = new DataBean("影视", 4, "url");
-        DataBean bean6 = new DataBean("娱乐", 5, "url");
-        DataBean bean7 = new DataBean("新闻", 6, "url");
-        DataBean bean8 = new DataBean("音乐", 7, "url");
-        DataBean bean9 = new DataBean("电影", 8, "url");
+//        DataBean bean6 = new DataBean("娱乐", 5, "url");
+//        DataBean bean7 = new DataBean("新闻", 6, "url");
+//        DataBean bean8 = new DataBean("音乐", 7, "url");
+//        DataBean bean9 = new DataBean("电影", 8, "url");
 
         channleList.add(bean1);
         channleList.add(bean2);
         channleList.add(bean3);
         channleList.add(bean4);
         channleList.add(bean5);
-        channleList.add(bean6);
-        channleList.add(bean7);
-        channleList.add(bean8);
-        channleList.add(bean9);
+//        channleList.add(bean6);
+//        channleList.add(bean7);
+//        channleList.add(bean8);
+//        channleList.add(bean9);
 
         DataBean bean_1 = new DataBean("段子", 0, "url");
         DataBean bean_2 = new DataBean("育儿", 1, "url");
@@ -416,19 +446,28 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
      *  初始化Fragment
      * */
     private void initFragment() {
-        fragments.clear();
-//        int count =  newsClassify.size();
+
         int count =  channleList.size();
         for(int i = 0; i< count;i++){
-            Bundle data = new Bundle();
-            data.putString("text", channleList.get(i).getName());
             HotTopicFragment newfragment = new HotTopicFragment();
             newfragment.setHotText(channleList.get(i).getName());
-//            NewsFragment newfragment = new NewsFragment();
-//            newfragment.setArguments(data);
             fragments.add(newfragment);
         }
-        NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+
+        //初始化Fragment
+//        reFragment = new RecommendFragment();
+//        foFragment = new FollowFragment();
+//        hotFragment = new HotTopicFragment();
+//        spFragment = new SportFragment();
+//        flFragment = new FilmFragment();
+        // 添加到集合中
+//        fragments.add(reFragment);
+//        fragments.add(foFragment);
+//        fragments.add(hotFragment);
+//        fragments.add(spFragment);
+//        fragments.add(flFragment);
+
+        mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
 //		mViewPager.setOffscreenPageLimit(0);
         mViewPager.setAdapter(mAdapetr);
         mViewPager.setOnPageChangeListener(pageListener);
@@ -560,5 +599,33 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             });
             mRadioGroup_content.addView(columnTextView, i ,params);
         }
+    }
+
+    /**
+     * @Description:更新fragment
+     *
+     * @param
+     *
+     * @return
+     *
+     */
+    private void reFragment() {
+
+        if (fragments != null && mAdapetr != null) {
+            mAdapetr.setFragments(fragments);
+        }
+        fragments.clear();
+        mViewPager.removeAllViews();
+        int count = channleList.size();
+        for(int i = 0; i< count;i++){
+            HotTopicFragment newfragment = new HotTopicFragment();
+            newfragment.setHotText(channleList.get(i).getName());
+            fragments.add(newfragment);
+        }
+        if (fragments != null && mAdapetr != null) {
+            mAdapetr.setFragments(fragments);
+        }
+//        mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+//        mViewPager.setAdapter(mAdapetr);
     }
 }
