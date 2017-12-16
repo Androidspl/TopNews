@@ -30,6 +30,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import static android.R.attr.data;
+
 public class NewsAdapter extends BaseAdapter {
 	ArrayList<NewsEntity> newsList;
 	Activity activity;
@@ -49,7 +51,8 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return newsList == null ? 0 : newsList.size();
+//		return newsList == null ? 0 : newsList.size();
+		return 5;
 	}
 
 	@Override

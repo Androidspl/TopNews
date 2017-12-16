@@ -37,7 +37,6 @@ import com.topnews.custom.CustomTabView;
 import com.topnews.fragment.FilmFragment;
 import com.topnews.fragment.FollowFragment;
 import com.topnews.fragment.HotTopicFragment;
-import com.topnews.fragment.NewsFragment;
 import com.topnews.fragment.RecommendFragment;
 import com.topnews.fragment.SportFragment;
 import com.topnews.tool.BaseTools;
@@ -48,6 +47,8 @@ import com.topnews.view.DrawerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.media.CamcorderProfile.get;
 
 /**
  * （android高仿系列）今日头条 --新闻阅读器
@@ -65,7 +66,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
     /** 新闻分类列表*/
     private ArrayList<NewsClassify> newsClassify=new ArrayList<NewsClassify>();
     /** 当前选中的栏目*/
-    private int columnSelectIndex = 0;
+    public int columnSelectIndex = 0;
     /** 左阴影部分*/
     public ImageView shade_left;
     /** 右阴影部分 */
@@ -467,7 +468,7 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
 //        fragments.add(spFragment);
 //        fragments.add(flFragment);
 
-        mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+        mAdapetr = new NewsFragmentPagerAdapter(getApplicationContext(), getSupportFragmentManager(), fragments);
 //		mViewPager.setOffscreenPageLimit(0);
         mViewPager.setAdapter(mAdapetr);
         mViewPager.setOnPageChangeListener(pageListener);
@@ -509,6 +510,11 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
             // TODO Auto-generated method stub
             mViewPager.setCurrentItem(position);
             selectTab(position);
+            HotTopicFragment hotTopicFragment = (HotTopicFragment) fragments.get(position);
+            hotTopicFragment.setHotText(channleList.get(position).getName());
+            if (mAdapetr != null) {
+                mAdapetr.setNotifyFragments();
+            }
         }
     };
 
@@ -620,11 +626,19 @@ public class MainActivity extends FragmentActivity implements CustomTabView.OnTa
         for(int i = 0; i< count;i++){
             HotTopicFragment newfragment = new HotTopicFragment();
             newfragment.setHotText(channleList.get(i).getName());
+//            mViewPager.findViewWithTag()
+//            String key = "tvRecord" + i;
+//            TextView fragment_name = (TextView) mViewPager.findViewWithTag(channleList.get(i).getName());
+//            if (fragment_name != null){
+//                fragment_name.setText(channleList.get(i).getName());
+//            }
             fragments.add(newfragment);
         }
+//        mAdapetr.destroyItem();
         if (fragments != null && mAdapetr != null) {
             mAdapetr.setFragments(fragments);
         }
+
 //        mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
 //        mViewPager.setAdapter(mAdapetr);
     }
